@@ -8,7 +8,9 @@ import { HealthModule } from './health/health.module';
 import { LlmModule } from './llm/llm.module';
 import { QueueModule } from './queue/queue.module';
 import { SampleModule } from './sample/sample.module';
-
+import { CandidateDocumentsModule } from './sample/candidate-documents.module';
+import { CandidateSummariesModule } from './sample/candidate-summaries.module';
+import { InternalModule } from './sample/internal.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -22,6 +24,9 @@ import { SampleModule } from './sample/sample.module';
     QueueModule,
     LlmModule,
     SampleModule,
+    CandidateDocumentsModule,
+    CandidateSummariesModule,
+    InternalModule
   ],
 })
 export class AppModule {}

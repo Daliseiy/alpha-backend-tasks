@@ -13,7 +13,7 @@ This service includes:
 - Jest test setup
 
 The assessment-specific candidate document and summary workflow is intentionally not implemented.
-
+np
 ## Prerequisites
 
 - Node.js 22+

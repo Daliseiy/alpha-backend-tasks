@@ -1,5 +1,12 @@
 export type RecommendedDecision = 'advance' | 'hold' | 'reject';
 
+export interface CandidateSummaryInputDocument {
+  id: string;
+  documentType: string;
+  fileName: string;
+  rawText: string;
+}
+
 export interface CandidateSummaryResult {
   score: number;
   strengths: string[];
@@ -10,7 +17,8 @@ export interface CandidateSummaryResult {
 
 export interface CandidateSummaryInput {
   candidateId: string;
-  documents: string[];
+  promptVersion: string;
+  documents: CandidateSummaryInputDocument[];
 }
 
 export interface SummarizationProvider {

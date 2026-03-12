@@ -5,8 +5,11 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryColumn,
+  OneToMany,
 } from 'typeorm';
 
+import { CandidateDocument } from './candidate-document.entity';
+import { CandidateSummary } from './candidate-summary.entity';
 import { SampleWorkspace } from './sample-workspace.entity';
 
 @Entity({ name: 'sample_candidates' })
@@ -31,4 +34,10 @@ export class SampleCandidate {
   })
   @JoinColumn({ name: 'workspace_id' })
   workspace!: SampleWorkspace;
+
+  @OneToMany(() => CandidateDocument, (document) => document.candidate)
+  documents!: CandidateDocument[];
+
+  @OneToMany(() => CandidateSummary, (summary) => summary.candidate)
+  summaries!: CandidateSummary[];
 }

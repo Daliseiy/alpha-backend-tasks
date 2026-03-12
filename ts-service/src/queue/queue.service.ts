@@ -7,6 +7,7 @@ export interface EnqueuedJob<TPayload = unknown> {
   name: string;
   payload: TPayload;
   enqueuedAt: string;
+  processedAt: string | null;
 }
 
 @Injectable()
@@ -19,6 +20,7 @@ export class QueueService {
       name,
       payload,
       enqueuedAt: new Date().toISOString(),
+      processedAt: null,
     };
 
     this.jobs.push(job);
@@ -27,5 +29,19 @@ export class QueueService {
 
   getQueuedJobs(): readonly EnqueuedJob[] {
     return this.jobs;
+  }
+
+  getPendingJobs(): EnqueuedJob[] {
+    return this.jobs.filter((job) => job.processedAt === null);
+  }
+
+  markJobProcessed(jobId: string): void {
+    const job = this.jobs.find((item) => item.id === jobId);
+
+    if (!job) {
+      return;
+    }
+
+    job.processedAt = new Date().toISOString();
   }
 }

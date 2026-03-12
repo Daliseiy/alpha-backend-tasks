@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from markupsafe import Markup
 
 _TEMPLATE_DIR = Path(__file__).resolve().parents[1] / "templates"
 
@@ -15,10 +16,10 @@ class ReportFormatter:
             autoescape=select_autoescape(enabled_extensions=("html", "xml"), default_for_string=True),
         )
 
-    def render_base(self, title: str, body: str) -> str:
+    def render_base(self, body: dict) -> str:
         template = self._env.get_template("base.html")
-        return template.render(title=title, body=body, generated_at=self.generated_timestamp())
-
+        return template.render(**body, generated_at=self.generated_timestamp())
+    
     @staticmethod
     def generated_timestamp() -> str:
         return datetime.now(timezone.utc).isoformat()
